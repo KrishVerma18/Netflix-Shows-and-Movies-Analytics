@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netflix Content Analytics | Executive BI Portfolio</title>
+  
+  <!-- Premium Fonts from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- ====================================================
+         1. LEFT SIDEBAR NAVIGATION
+         ==================================================== -->
+    <aside class="sidebar">
+      <!-- Netflix 'N' Emblem -->
+      <div class="sidebar-top">
+        <a href="#overview" class="netflix-logo-emblem" aria-label="Netflix Analytics Home">
+          <svg viewBox="0 0 32 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="n-logo-svg">
+            <path d="M0 0H8.8V48H0V0Z" fill="#E50914"/>
+            <path d="M23.2 0H32V48H23.2V0Z" fill="#E50914"/>
+            <path d="M8.8 0L23.2 48H32L17.6 0H8.8Z" fill="#B20710"/>
+            <path d="M0 0L23.2 48H32L8.8 0H0Z" fill="#E50914"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-page="overview">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span>Overview</span>
+        </button>
+
+        <button class="nav-item" data-page="explorer">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"/>
+            <rect x="14" y="3" width="7" height="7"/>
+            <rect x="14" y="14" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/>
+          </svg>
+          <span>Catalog Explorer</span>
+        </button>
+
+        <button class="nav-item" data-page="trends">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+            <polyline points="17 6 23 6 23 12"/>
+          </svg>
+          <span>Trends</span>
+        </button>
+
+        <button class="nav-item" data-page="geography">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <span>Geography</span>
+        </button>
+
+        <button class="nav-item" data-page="insights">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+          </svg>
+          <span>Insights</span>
+        </button>
+
+        <button class="nav-item" data-page="methodology">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="16" x2="12" y2="12"/>
+            <line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+          <span>Methodology</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Bottom Popcorn Story Card -->
+      <div class="sidebar-footer">
+        <div class="popcorn-card">
+          <div class="popcorn-icon">🍿</div>
+          <p>Dive into the world of stories. Data tells the story behind the screen.</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ====================================================
+         2. MAIN VIEWPORT AREA
+         ==================================================== -->
+    <main class="main-viewport">
+      
+      <!-- Top Cinematic Hero Section -->
+      <section class="cinematic-hero">
+        <div class="hero-left-content">
+          <div class="hero-titles">
+            <h1 class="brand-wordmark">NETFLIX</h1>
+            <h2 class="brand-subheading">CONTENT ANALYTICS</h2>
+            <p class="brand-tagline">Exploring Netflix's Movies & TV Shows Across Genres, Countries & Time</p>
+          </div>
+        </div>
+
+        <!-- Cinematic Montage Banner (fades to black on left) -->
+        <div class="hero-visual-container">
+          <div class="hero-vignette-overlay"></div>
+          <img src="Dashboard/posters_montage.jpg" alt="Netflix Cinematic Poster Montage" class="hero-montage-img" id="heroMontage">
+          
+          <!-- Top Right Theme Toggle -->
+          <div class="theme-toggle-wrap">
+            <span class="theme-label" id="themeLabelText">Light Mode</span>
+            <label class="switch" aria-label="Toggle Light and Dark Mode">
+              <input type="checkbox" id="themeSwitch">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================
+           3. KPI METRIC CARDS ROW
+           ==================================================== -->
+      <section class="kpi-section">
+        <!-- 1. Total Titles -->
+        <div class="kpi-box">
+          <div class="kpi-icon-slot">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+              <line x1="7" y1="2" x2="7" y2="22"/>
+              <line x1="17" y1="2" x2="17" y2="22"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <line x1="2" y1="7" x2="7" y2="7"/>
+              <line x1="2" y1="17" x2="7" y2="17"/>
+              <line x1="17" y1="17" x2="22" y2="17"/>
+              <line x1="17" y1="7" x2="22" y2="7"/>
+            </svg>
+          </div>
+          <div class="kpi-data">
+            <span class="kpi-caption">TOTAL TITLES</span>
+            <span class="kpi-num" id="kpiTotal">8,807</span>
+            <span class="kpi-subtext" id="kpiTotalSub">100% of Catalog</span>
+          </div>
+        </div>
+
+        <!-- 2. Movies -->
+        <div class="kpi-box kpi-box-active">
+          <div class="kpi-icon-slot icon-red">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <div class="kpi-data">
+            <span class="kpi-caption">MOVIES</span>
+            <span class="kpi-num color-red" id="kpiMovies">6,131</span>
+            <span class="kpi-subtext" id="kpiMoviesSub">69.6% of Catalog</span>
+          </div>
+        </div>
+
+        <!-- 3. TV Shows -->
+        <div class="kpi-box">
+          <div class="kpi-icon-slot icon-blue">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/>
+              <polyline points="17 2 12 7 7 2"/>
+            </svg>
+          </div>
+          <div class="kpi-data">
+            <span class="kpi-caption">TV SHOWS</span>
+            <span class="kpi-num color-blue" id="kpiTVShows">2,676</span>
+            <span class="kpi-subtext" id="kpiTVSub">30.4% of Catalog</span>
+          </div>
+        </div>
+
+        <!-- 4. Countries -->
+        <div class="kpi-box">
+          <div class="kpi-icon-slot icon-green">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <div class="kpi-data">
+            <span class="kpi-caption">COUNTRIES</span>
+            <span class="kpi-num" id="kpiCountries">86</span>
+            <span class="kpi-subtext">Geographic Diversity</span>
+          </div>
+        </div>
+
+        <!-- 5. Genres -->
+        <div class="kpi-box">
+          <div class="kpi-icon-slot icon-amber">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
+          <div class="kpi-data">
+            <span class="kpi-caption">GENRES</span>
+            <span class="kpi-num" id="kpiGenres">42</span>
+            <span class="kpi-subtext">Unique Genres</span>
+          </div>
+        </div>
+
+        <!-- 6. Avg Movie Runtime -->
+        <div class="kpi-box">
+          <div class="kpi-icon-slot icon-purple">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="kpi-data">
+            <span class="kpi-caption">AVG. MOVIE RUNTIME</span>
+            <span class="kpi-num" id="kpiRuntime">99.6 min</span>
+            <span class="kpi-subtext color-purple">Feature Film Mean</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================
+           4. GLOBAL FILTER BAR
+           ==================================================== -->
+      <section class="filter-strip">
+        <div class="filter-cell">
+          <label for="filterTypeSelect">Content Type</label>
+          <select id="filterTypeSelect" class="filter-dropdown">
+            <option value="ALL">All Formats</option>
+            <option value="Movie">Movies</option>
+            <option value="TV Show">TV Shows</option>
+          </select>
+        </div>
+
+        <div class="filter-cell">
+          <label for="filterCountrySelect">Country</label>
+          <select id="filterCountrySelect" class="filter-dropdown">
+            <option value="ALL">All Countries</option>
+          </select>
+        </div>
+
+        <div class="filter-cell">
+          <label for="filterGenreSelect">Genre</label>
+          <select id="filterGenreSelect" class="filter-dropdown">
+            <option value="ALL">All Genres</option>
+          </select>
+        </div>
+
+        <div class="filter-cell">
+          <label for="filterRatingSelect">Content Rating</label>
+          <select id="filterRatingSelect" class="filter-dropdown">
+            <option value="ALL">All Certifications</option>
+          </select>
+        </div>
+
+        <div class="filter-cell filter-cell-range">
+          <div class="range-labels">
+            <span>Release Year</span>
+            <span class="range-values"><span id="yearMinVal">1925</span> - 2021</span>
+          </div>
+          <input type="range" id="filterYearSlider" min="1925" max="2021" value="1925" class="year-range-slider">
+        </div>
+
+        <div class="filter-cell filter-cell-btn">
+          <button id="resetFiltersButton" class="btn-reset">Reset Filters</button>
+        </div>
+      </section>
+
+      <!-- Active Filter Status Indicator -->
+      <div class="filter-status-row">
+        <span class="filter-status-text" id="filterStatusText">Showing 8,807 titles</span>
+      </div>
+
+      <!-- ====================================================
+           5. PAGE SECTIONS
+           ==================================================== -->
+
+      <!-- ----------------------------------------------------
+           PAGE 1: OVERVIEW (Main Dashboard)
+           ---------------------------------------------------- -->
+      <section id="page-overview" class="content-page active">
+        <!-- Dashboard Grid Row 1 (4 Charts) -->
+        <div class="dashboard-grid-4">
+          
+          <!-- Chart 1: Movies vs TV Shows Donut -->
+          <div class="dash-card">
+            <div class="card-head">
+              <h3>Movies vs TV Shows</h3>
+            </div>
+            <div class="chart-canvas-area donut-area">
+              <div class="donut-stats-left">
+                <span class="stat-pct color-red" id="donutMoviePct">69.6%</span>
+                <span class="stat-label">Movies</span>
+                <span class="stat-count" id="donutMovieCount">6,131</span>
+              </div>
+              <div class="chart-box-center">
+                <canvas id="chartOverviewType"></canvas>
+                <div class="donut-center-badge">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="#E50914">
+                    <polygon points="5 3 19 12 5 21 5 3"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="donut-stats-right">
+                <span class="stat-pct color-blue" id="donutTVPct">30.4%</span>
+                <span class="stat-label">TV Shows</span>
+                <span class="stat-count" id="donutTVCount">2,676</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chart 2: Titles Added to Netflix Over Time -->
+          <div class="dash-card">
+            <div class="card-head">
+              <h3>Titles Added to Netflix Over Time</h3>
+              <div class="card-legend-dots">
+                <span class="dot-item"><span class="dot dot-red"></span>Movies</span>
+                <span class="dot-item"><span class="dot dot-blue"></span>TV Shows</span>
+              </div>
+            </div>
+            <div class="chart-canvas-area">
+              <canvas id="chartOverviewTimeline"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 3: Top 10 Countries -->
+          <div class="dash-card">
+            <div class="card-head">
+              <h3>Top 10 Countries</h3>
+            </div>
+            <div class="chart-canvas-area">
+              <canvas id="chartOverviewCountries"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 4: Top 10 Genres -->
+          <div class="dash-card">
+            <div class="card-head">
+              <h3>Top 10 Genres</h3>
+            </div>
+            <div class="chart-canvas-area">
+              <canvas id="chartOverviewGenres"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dashboard Grid Row 2 (4 Panels) -->
+        <div class="dashboard-grid-4">
+          
+          <!-- Chart 5: Content Rating Distribution -->
+          <div class="dash-card">
+            <div class="card-head">
+              <h3>Content Rating Distribution</h3>
+            </div>
+            <div class="chart-canvas-area donut-rating-layout">
+              <div class="donut-rating-canvas">
+                <canvas id="chartOverviewRatings"></canvas>
+              </div>
+              <div class="rating-legend-list" id="ratingLegendList">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Chart 6: Movie Runtime Distribution -->
+          <div class="dash-card">
+            <div class="card-head">
+              <h3>Movie Runtime Distribution</h3>
+            </div>
+            <div class="chart-canvas-area">
+              <canvas id="chartOverviewRuntime"></canvas>
+            </div>
+            <div class="chart-axis-label-center">Runtime (Minutes)</div>
+          </div>
+
+          <!-- Chart 7: TV Shows by Number of Seasons -->
+          <div class="dash-card">
+            <div class="card-head">
+              <h3>TV Shows by Number of Seasons</h3>
+            </div>
+            <div class="chart-canvas-area">
+              <canvas id="chartOverviewSeasons"></canvas>
+            </div>
+            <div class="chart-axis-label-center">Seasons</div>
+          </div>
+
+          <!-- Card 8: Cinematic Key Takeaway Card -->
+          <div class="dash-card takeaway-card">
+            <div class="takeaway-inner">
+              <div class="takeaway-icon-slot">
+                <svg viewBox="0 0 24 24" width="36" height="36" fill="#E50914">
+                  <path d="M4 4h16v16H4V4zm2 4h12V6H6v2zm0 4h12v-2H6v2zm0 4h12v-2H6v2z"/>
+                </svg>
+              </div>
+              <div class="takeaway-text">
+                <h4>The catalog is constantly evolving.</h4>
+                <p>2018–2020 saw the highest surge in content additions, transitioning Netflix from archival syndication to day-and-date digital premieres.</p>
+                <button class="btn-explore-trends" id="btnExploreTrends">Explore Trends</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footnote citation -->
+        <div class="dash-footnote">
+          Note: Analysis based on publicly available Netflix Titles dataset (8,807 titles). Evaluated with SQL, Excel, and Tableau.
+        </div>
+      </section>
+
+      <!-- ----------------------------------------------------
+           PAGE 2: CATALOG EXPLORER
+           ---------------------------------------------------- -->
+      <section id="page-explorer" class="content-page">
+        <div class="page-container-inner">
+          <div class="section-top-bar">
+            <div>
+              <h2 class="page-headline">Catalog Explorer</h2>
+              <p class="page-subline">Browse, search, and inspect all 8,807 Netflix titles</p>
+            </div>
+            <div class="table-search-wrap">
+              <input type="text" id="catalogSearchInput" placeholder="Search by title, director, actor, genre..." class="input-search">
+            </div>
+          </div>
+
+          <div class="catalog-table-container">
+            <table class="catalog-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Type</th>
+                  <th>Release</th>
+                  <th>Added</th>
+                  <th>Country</th>
+                  <th>Rating</th>
+                  <th>Duration</th>
+                  <th>Genre</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="catalogTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pagination-footer">
+            <span class="pagination-count-label" id="paginationStatusText">Showing 1 - 25 of 8,807 titles</span>
+            <div class="pagination-controls">
+              <button class="btn-page" id="btnPagePrev" disabled>&larr; Previous</button>
+              <span class="page-index-label" id="pageIndexDisplay">Page 1</span>
+              <button class="btn-page" id="btnPageNext">Next &rarr;</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ----------------------------------------------------
+           PAGE 3: TRENDS
+           ---------------------------------------------------- -->
+      <section id="page-trends" class="content-page">
+        <div class="page-container-inner">
+          <div class="section-top-bar">
+            <div>
+              <h2 class="page-headline">Temporal Content Trends</h2>
+              <p class="page-subline">Historical addition volume, release trajectories, and format shifts</p>
+            </div>
+          </div>
+
+          <div class="trends-charts-grid">
+            <div class="dash-card">
+              <div class="card-head">
+                <h3>Annual Content Additions (2008 – 2021)</h3>
+                <span class="badge-sub">Platform Ingestion Velocity</span>
+              </div>
+              <div class="chart-canvas-area tall-chart">
+                <canvas id="chartTrendsAdditions"></canvas>
+              </div>
+            </div>
+
+            <div class="dash-card">
+              <div class="card-head">
+                <h3>Content by Original Release Decade</h3>
+                <span class="badge-sub">Catalog Vintage Breakdown</span>
+              </div>
+              <div class="chart-canvas-area tall-chart">
+                <canvas id="chartTrendsDecades"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ----------------------------------------------------
+           PAGE 4: GEOGRAPHY
+           ---------------------------------------------------- -->
+      <section id="page-geography" class="content-page">
+        <div class="page-container-inner">
+          <div class="section-top-bar">
+            <div>
+              <h2 class="page-headline">Netflix Content by Country</h2>
+              <p class="page-subline">Production hubs, regional format splits, and global distribution</p>
+            </div>
+          </div>
+
+          <div class="geo-layout-grid">
+            <!-- Left: Top Countries Bar Chart -->
+            <div class="dash-card">
+              <div class="card-head">
+                <h3>Top Production Countries (Movie vs TV Split)</h3>
+              </div>
+              <div class="chart-canvas-area geo-chart">
+                <canvas id="chartGeoStacked"></canvas>
+              </div>
+            </div>
+
+            <!-- Right: Ranked Production Table -->
+            <div class="dash-card">
+              <div class="card-head">
+                <h3>Country Production Leaderboard</h3>
+              </div>
+              <div class="table-container-scroll">
+                <table class="catalog-table compact-table">
+                  <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>Country</th>
+                      <th>Movies</th>
+                      <th>TV Shows</th>
+                      <th>Total Titles</th>
+                      <th>Movie Share</th>
+                    </tr>
+                  </thead>
+                  <tbody id="geoLeaderboardBody">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ----------------------------------------------------
+           PAGE 5: STRATEGIC INSIGHTS
+           ---------------------------------------------------- -->
+      <section id="page-insights" class="content-page">
+        <div class="page-container-inner">
+          <div class="section-top-bar">
+            <div>
+              <h2 class="page-headline">Strategic Business Insights</h2>
+              <p class="page-subline">Calculated findings derived from 8,807 authentic catalog records</p>
+            </div>
+          </div>
+
+          <div class="insights-card-grid">
+            <div class="insight-tile">
+              <div class="insight-badge">CONTENT MIX</div>
+              <h3>Feature Films Form 69.6% of Catalog Volume</h3>
+              <p>With 6,131 Movies vs 2,676 TV Shows (a 2.29-to-1 ratio), standalone movies represent the primary volume anchor for low-commitment and diverse viewing.</p>
+            </div>
+
+            <div class="insight-tile">
+              <div class="insight-badge">PEAK ACQUISITION</div>
+              <h3>Additions Peaked in 2019 at 2,016 Titles</h3>
+              <p>Platform ingestion surged exponentially until 2019, followed by catalog consolidation and strategic emphasis on proprietary high-budget originals.</p>
+            </div>
+
+            <div class="insight-tile">
+              <div class="insight-badge">DEMOGRAPHICS</div>
+              <h3>Mature & Teen Ratings Represent 70.0%</h3>
+              <p>Adult-oriented TV-MA (36.4%) and teen-focused TV-14 (24.5%) lead the catalog, aligning with Netflix's core subscriber acquisition priorities.</p>
+            </div>
+
+            <div class="insight-tile">
+              <div class="insight-badge">GEOGRAPHY</div>
+              <h3>United States & India Lead with 43.0% Share</h3>
+              <p>The US contributes 2,818 primary titles and India contributes 972 titles, representing Netflix's largest non-Western content commitment.</p>
+            </div>
+
+            <div class="insight-tile">
+              <div class="insight-badge">REGIONAL STRATEGY</div>
+              <h3>India (91.9% Movies) vs South Korea (75.4% TV)</h3>
+              <p>Regional strategies mirror cultural habits: Indian subscribers favor full-length cinema, while East Asian growth is driven by serialized K-dramas and anime.</p>
+            </div>
+
+            <div class="insight-tile">
+              <div class="insight-badge">SERIES LONGEVITY</div>
+              <h3>67.0% of TV Series End After Season 1</h3>
+              <p>1,793 of 2,676 TV shows have only 1 Season, reflecting strict performance thresholds and heavy reliance on limited docuseries.</p>
+            </div>
+
+            <div class="insight-tile">
+              <div class="insight-badge">RUNTIME STANDARD</div>
+              <h3>Movie Runtimes Cluster at 99.6 Minutes</h3>
+              <p>Average feature film runtime is 99.6 minutes (median 98 min), with 50% of movies falling squarely between 87 and 114 minutes.</p>
+            </div>
+
+            <div class="insight-tile">
+              <div class="insight-badge">CONTENT FRESHNESS</div>
+              <h3>Average Addition Lag Contracted to 1.8 Years</h3>
+              <p>The time gap between original premiere and Netflix addition dropped from 7.4 years in 2012 to 1.8 years in 2021, marking the shift to first-window streaming.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ----------------------------------------------------
+           PAGE 6: METHODOLOGY & TECHNICAL ANALYSIS
+           ---------------------------------------------------- -->
+      <section id="page-methodology" class="content-page">
+        <div class="page-container-inner">
+          <div class="section-top-bar">
+            <div>
+              <h2 class="page-headline">Methodology & Technical Architecture</h2>
+              <p class="page-subline">Documenting the SQL, Excel, and Tableau pipeline with collapsible technical queries</p>
+            </div>
+          </div>
+
+          <!-- Architecture Overview Cards -->
+          <div class="methodology-tech-cards">
+            <div class="tech-step-card">
+              <div class="tech-tag tag-excel">Excel</div>
+              <h4>Data Cleaning & Validation</h4>
+              <p>Removed duplicate risks, fixed misplaced duration strings (Louis C.K. records), standardized ISO dates, and created 5 structured sheets in <code>Netflix_Analytics.xlsx</code>.</p>
+            </div>
+
+            <div class="tech-step-card">
+              <div class="tech-tag tag-sql">SQL</div>
+              <h4>Business Queries & Analytics</h4>
+              <p>Relational modeling with normalized tables, CTEs, running totals, YoY growth velocity, and window functions across 5 modular scripts in <code>SQL/</code>.</p>
+            </div>
+
+            <div class="tech-step-card">
+              <div class="tech-tag tag-tableau">Tableau</div>
+              <h4>Executive Dashboard</h4>
+              <p>Packaged Tableau workbook (<code>Netflix_Content_Analytics.twbx</code>) with interactive filters, restrained dark palette, and multi-metric visual encoding.</p>
+            </div>
+          </div>
+
+          <!-- Data Quality Audit Table -->
+          <div class="dash-card method-section-card">
+            <div class="card-head">
+              <h3>Data Quality & Verification Metrics</h3>
+            </div>
+            <table class="catalog-table compact-table">
+              <thead>
+                <tr>
+                  <th>Audit Metric</th>
+                  <th>Raw Dataset</th>
+                  <th>Cleaned Dataset</th>
+                  <th>Transformation Applied</th>
+                  <th>Audit Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Total Records</td>
+                  <td>8,807</td>
+                  <td>8,807</td>
+                  <td>100% record retention (0 rows deleted)</td>
+                  <td><span class="badge-status status-pass">PASSED</span></td>
+                </tr>
+                <tr>
+                  <td>Duplicate Show IDs</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>Verified unique primary key constraint</td>
+                  <td><span class="badge-status status-pass">PASSED</span></td>
+                </tr>
+                <tr>
+                  <td>Misplaced Durations in Rating</td>
+                  <td>3 records (s5542, s5795, s5814)</td>
+                  <td>0</td>
+                  <td>Shifted min strings to duration; set rating to 'NR'</td>
+                  <td><span class="badge-status status-pass">RESOLVED</span></td>
+                </tr>
+                <tr>
+                  <td>Missing Text (Director, Cast, Country)</td>
+                  <td>2,634 / 825 / 831</td>
+                  <td>0 NULLs</td>
+                  <td>Imputed with 'Unknown' for aggregate grouping</td>
+                  <td><span class="badge-status status-pass">RESOLVED</span></td>
+                </tr>
+                <tr>
+                  <td>Parsed Numeric Metrics</td>
+                  <td>Textual strings</td>
+                  <td>6,131 minutes / 2,676 seasons</td>
+                  <td>Extracted integer duration_minutes & duration_seasons</td>
+                  <td><span class="badge-status status-pass">VERIFIED</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Collapsible SQL Analysis Accordions -->
+          <div class="dash-card method-section-card">
+            <div class="card-head">
+              <div>
+                <h3>SQL Analytical Business Queries</h3>
+                <p class="section-desc">Click any question to expand and inspect the verified query and output</p>
+              </div>
+            </div>
+
+            <div class="accordion-container" id="sqlAccordionContainer">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Production-Ready Future Architecture -->
+          <div class="dash-card method-section-card">
+            <div class="card-head">
+              <h3>Production-Ready Future Architecture (Conceptual Extension)</h3>
+            </div>
+            <p class="future-desc">
+              <strong>Note:</strong> The dataset analyzed in this portfolio is historical. In an enterprise streaming production deployment, this batch architecture can be extended into a real-time event-driven streaming pipeline:
+            </p>
+            <div class="pipeline-flow-diagram">
+              <div class="pipe-node"><strong>Ingestion:</strong> Kafka / AWS Kinesis (CMS title publish events)</div>
+              <div class="pipe-arrow">&rarr;</div>
+              <div class="pipe-node"><strong>Processing:</strong> Spark Streaming / Databricks Delta Live Tables</div>
+              <div class="pipe-arrow">&rarr;</div>
+              <div class="pipe-node"><strong>Storage:</strong> Snowflake / BigQuery Cloud Data Warehouse</div>
+              <div class="pipe-arrow">&rarr;</div>
+              <div class="pipe-node"><strong>BI & Analytics:</strong> Tableau Cloud / Embedded BI Portal</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================
+           6. MINIMAL ENTERPRISE FOOTER
+           ==================================================== -->
+      <footer class="app-footer">
+        <div class="footer-container">
+          <div class="footer-left">
+            <strong>Netflix Content Intelligence</strong> &bull; Data Analytics Portfolio
+          </div>
+          <div class="footer-center">
+            Tech Stack: <span>SQL</span> | <span>Excel</span> | <span>Tableau</span>
+          </div>
+          <div class="footer-right">
+            Source: Kaggle Netflix Titles &bull; 8,807 Verified Records
+          </div>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- Title Detail Modal Backdrop -->
+  <div id="titleDetailModal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <span class="badge" id="modalTypeTag">Movie</span>
+          <h3 id="modalTitleText">Title</h3>
+        </div>
+        <button id="modalCloseBtn" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-meta-grid">
+          <div><strong>Release Year:</strong> <span id="modalRelease">2020</span></div>
+          <div><strong>Added to Netflix:</strong> <span id="modalAdded">2021-09-25</span></div>
+          <div><strong>Rating:</strong> <span id="modalRatingBadge">TV-MA</span></div>
+          <div><strong>Duration:</strong> <span id="modalDurationVal">90 min</span></div>
+          <div><strong>Country:</strong> <span id="modalCountryVal">United States</span></div>
+          <div><strong>Genre:</strong> <span id="modalGenreVal">Dramas</span></div>
+        </div>
+        <div class="modal-section">
+          <strong>Director:</strong>
+          <p id="modalDirectorVal">Director Name</p>
+        </div>
+        <div class="modal-section">
+          <strong>Cast:</strong>
+          <p id="modalCastVal">Cast Members</p>
+        </div>
+        <div class="modal-section">
+          <strong>Synopsis:</strong>
+          <p id="modalSynopsisVal">Official synopsis...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load Data and Main Script -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
